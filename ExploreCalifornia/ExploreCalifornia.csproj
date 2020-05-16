@@ -21,10 +21,6 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
-      <Content Update="wwwroot\index.html">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
       <Content Update="wwwroot\login.htm">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -225,6 +221,10 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
+<!--      <Content Include="Views\Home\Index.cshtml">-->
+<!--        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>-->
+<!--        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>-->
+<!--      </Content>-->
     </ItemGroup>
 
 </Project>
