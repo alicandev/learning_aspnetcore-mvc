@@ -1,19 +1,26 @@
-﻿@model ExploreCalifornia.Models.Blog.Post
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model ExploreCalifornia.Models.Blog.Post
 
 @{
-    Layout = "_Layout";
+	Layout = "_Layout";
 }
 
-@using (Html.BeginForm())
-{
-    <p>
-       @Html.LabelFor(x => x.Title)
-       @Html.EditorFor(x => x.Title)
-    </p>
-    <p>
-        @Html.LabelFor(x => x.Title)
-        @Html.TextAreaFor(x => x.Body)
-    </p>
-    <button type="submit">Create Post</button>
-}
+<fieldset>
+	<form asp-action="Create" asp-controller="Blog">
+		<p>
+			<div asp-validation-summary="All"></div>
+		</p>
+		<p>
+			<label asp-for="Title"></label>
+			<input asp-for="Title" />
+			<span asp-validation-for="Title"></span>
+		</p>
+		<p>
+			<label asp-for="Body"></label>
+			<input asp-for="Body" />
+			<span asp-validation-for="Body"></span>
+		</p>
+		<button type="submit">Create Post</button>
+	</form>
+</fieldset>
 
