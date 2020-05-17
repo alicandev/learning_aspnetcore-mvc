@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ExploreCalifornia.Models.Blog.Post>
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@{
     Layout = "_Layout";
 }
 
@@ -7,7 +9,26 @@
     Below are a few of the latest posts from some of our explorers.
 </p>
 <div id="blog-posts">
-    TODO: Blog posts will go here.
+    @foreach (var post in Model)
+    {
+        <article class="blog-post">
+            <h1>
+                <a asp-action="Post"
+                   asp-controller="Blog"
+                   asp-route-year="@post.Posted.Year"
+                   asp-route-month="@post.Posted.Month"
+                   asp-route-key="@post.Key">
+                    @post.Title
+                </a>
+            </h1>
+            <div class="details">
+                Posted <span>@post.Posted</span> by <span>@post.Author</span>
+            </div>
+            <div class="content">
+                @post.Body
+            </div>
+        </article>
+    }
 </div>
 
 

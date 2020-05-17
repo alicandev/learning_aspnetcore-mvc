@@ -27,12 +27,12 @@ namespace ExploreCalifornia
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FeatureToggles features)
         {
-            if (features.DeveloperExceptions) { app.UseDeveloperExceptionPage(); }
-            else { app.UseExceptionHandler("/error.html"); }
+            if (features.DeveloperExceptions) app.UseDeveloperExceptionPage();
+            else app.UseExceptionHandler("/error.html");
 
             app.Use(async (ctx, next) =>
             {
-                if (ctx.Request.Path.Value.Contains("invalid")) { throw new Exception("Woah!"); }
+                if (ctx.Request.Path.Value.Contains("invalid")) throw new Exception("Woah!");
                 await next();
             });
 
