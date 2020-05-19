@@ -40,10 +40,10 @@ namespace ExploreCalifornia.Controllers
             if (!ModelState.IsValid) return View();
             
             _db.Posts.Add(new Post {
-                Author = "Alican Demirtas",
+                Title = post.Title,
                 Body = post.Body,
-                Id = post.Id,
-                Posted = DateTime.Now
+                Author = "Alican Demirtas",
+                Posted = DateTime.Now 
             });
             _db.SaveChanges();
             

@@ -20,9 +20,13 @@ namespace ExploreCalifornia
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<FeatureToggles>(x => new FeatureToggles { DeveloperExceptions = _configuration.GetValue<bool>("FeatureToggles:DeveloperExceptions") });
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddDbContext<BlogDataContext>(options => options.UseSqlServer(_configuration.GetConnectionString("BlogDataContext")));
+            services.AddTransient(x => new FeatureToggles {
+                DeveloperExceptions = _configuration.GetValue<bool>("FeatureToggles:DeveloperExceptions")
+            });
+            services.AddDbContext<BlogDataContext>(options => 
+                options.UseSqlServer(_configuration.GetConnectionString("BlogDataContext"))
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, FeatureToggles features)

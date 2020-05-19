@@ -7,7 +7,8 @@ namespace ExploreCalifornia
     {
         public DbSet<Post> Posts { get; set; }
 
-        public BlogDataContext (DbContextOptions options) : base(options)
+        public BlogDataContext (DbContextOptions options) 
+            : base(options)
         {
             Database.EnsureCreated();
         }
