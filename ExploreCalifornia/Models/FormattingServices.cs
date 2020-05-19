@@ -6,7 +6,7 @@ namespace ExploreCalifornia.Models
     {
         public string AsReadableDate(DateTime date)
         {
-            return date.ToString("d");
+            return date.ToString("D");
         }
     }
 }
