@@ -1,10 +1,22 @@
-﻿namespace ExploreCalifornia.ViewComponents
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using ExploreCalifornia.Models;
+
+namespace ExploreCalifornia.ViewComponents
 {
-    public class MonthlySpecialsViewComponent
+    public class MonthlySpecialsViewComponent : ViewComponent
     {
-        public string Invoke()
+        private readonly BlogDataContext db;
+
+        public MonthlySpecialsViewComponent (BlogDataContext db)
         {
-            return "TODO: Show monthly specials";
+            this.db = db;
+        }
+        
+        public IViewComponentResult Invoke()
+        {
+            var specials = db.MonthlySpecials.ToArray();
+            return View(specials);
         }
     }
 }
