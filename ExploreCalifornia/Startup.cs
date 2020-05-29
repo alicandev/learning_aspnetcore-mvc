@@ -17,7 +17,10 @@ namespace ExploreCalifornia
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        public Startup (IConfiguration configuration) { _configuration = configuration; } 
+        public Startup (IConfiguration configuration)
+        {
+            _configuration = configuration;
+        } 
         
         public void ConfigureServices(IServiceCollection services)
         {
@@ -45,7 +48,11 @@ namespace ExploreCalifornia
                 await next();
             });
 
-            app.UseMvc(routes => routes.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}"));
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("Default", 
+                    "{controller=Home}/{action=Index}/{id?}");
+            });
             app.UseFileServer();
         }
     }
