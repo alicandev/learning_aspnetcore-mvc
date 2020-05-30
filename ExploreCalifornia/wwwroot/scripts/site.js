@@ -1,5 +1,4 @@
 $(function () {
-
     $('#mainContent').on('click', '.pager a', function () {
         var url = $(this).attr('href');
 
@@ -7,5 +6,4 @@ $(function () {
 
         return false;
     })
-
 });
