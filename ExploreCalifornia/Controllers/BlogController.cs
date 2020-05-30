@@ -34,7 +34,11 @@ namespace ExploreCalifornia.Controllers
                     .Skip(pageSize + page)
                     .Take(pageSize)
                     .ToArray();
-            return View(posts);
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView(posts);
+            else
+                return View(posts);
         }
 
         [Route("{year:min(2000)}/{month:range(1,12)}/{key}")]
