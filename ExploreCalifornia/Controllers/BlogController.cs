@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using ExploreCalifornia.Models.Blog;
+using System.Threading.Tasks;
+using ExploreCalifornia.Models;
 using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ExploreCalifornia.Controllers
 {
@@ -9,7 +13,8 @@ namespace ExploreCalifornia.Controllers
     public class BlogController : Controller
     {
         private readonly BlogDataContext _db;
-        public BlogController (BlogDataContext db)
+
+        public BlogController(BlogDataContext db)
         {
             _db = db;
         }
@@ -27,13 +32,17 @@ namespace ExploreCalifornia.Controllers
             ViewBag.HasPreviousPage = previousPage >= 0;
             ViewBag.NextPage = nextPage;
             ViewBag.HasNextPage = nextPage < totalPages;
-            
+
             var posts =
                 _db.Posts
-                    .OrderByDescending(x => x.Posted).Take(5).ToArray()
-                    .Skip(pageSize + page)
+                    .OrderByDescending(x => x.Posted)
+                    .Skip(pageSize * page)
                     .Take(pageSize)
                     .ToArray();
+
+            if(Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView(posts);
+
             return View(posts);
         }
 
@@ -49,30 +58,25 @@ namespace ExploreCalifornia.Controllers
         {
             return View();
         }
-        
+
         [HttpPost, Route("create")]
         public IActionResult Create(Post post)
         {
-            if (!ModelState.IsValid) return View();
-            
-            _db.Posts.Add(new Post {
-                Title = post.Title,
-                Body = post.Body,
-                Author = "Alican Demirtas",
-                Posted = DateTime.Now 
-            });
+            if (!ModelState.IsValid)
+                return View();
+
+            post.Author = User.Identity.Name;
+            post.Posted = DateTime.Now;
+
+            _db.Posts.Add(post);
             _db.SaveChanges();
-            
-            return RedirectToAction(
-                "Post", 
-                "Blog", 
-                new
-                {
-                    year = post.Posted.Year, 
-                    month = post.Posted.Month, 
-                    key = post.Key
-                }
-            );
+
+            return RedirectToAction("Post", "Blog", new
+            {
+                year = post.Posted.Year,
+                month = post.Posted.Month,
+                key = post.Key
+            });
         }
     }
 }

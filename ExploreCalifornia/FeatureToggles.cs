@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ExploreCalifornia
 {
-	public class FeatureToggles
-	{
-		public bool DeveloperExceptions { get; set; }
-	}
+    public class FeatureToggles
+    {
+        public bool DeveloperExceptions { get; set; }
+    }
 }
